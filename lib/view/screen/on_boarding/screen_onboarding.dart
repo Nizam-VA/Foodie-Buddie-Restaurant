@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodiebuddierestaurant/core/constants.dart';
+import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/view/screen/login/screen_login.dart';
 
 class ScreenOnboard extends StatelessWidget {

@@ -8,7 +8,7 @@ class ScreenMain extends StatelessWidget {
   ScreenMain({super.key});
 
   final List screens = [
-    const ScreenHome(),
+    ScreenHome(),
     const ScreenOrders(),
     const ScreenOffers(),
     const ScreenProfile()

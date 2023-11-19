@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodiebuddierestaurant/core/constants.dart';
+import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/view/screen/confirmation/screen_confirmation.dart';
 import 'package:foodiebuddierestaurant/view/widgets/button_widget.dart';
 import 'package:foodiebuddierestaurant/view/widgets/text_field_widget.dart';

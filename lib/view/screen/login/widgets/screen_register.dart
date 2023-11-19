@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodiebuddierestaurant/controller/api_services/api_calls.dart';
-import 'package:foodiebuddierestaurant/core/constants.dart';
+import 'package:foodiebuddierestaurant/controller/api_services/authentication/api_calls.dart';
 import 'package:foodiebuddierestaurant/model/restaurant.dart';
+import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/view/screen/main/screen_main.dart';
 import 'package:foodiebuddierestaurant/view/widgets/button_widget.dart';
+import 'package:foodiebuddierestaurant/view/widgets/functions/snack_bar.dart';
 import 'package:foodiebuddierestaurant/view/widgets/text_field_widget.dart';
 
 class ScreenRegister extends StatelessWidget {
@@ -154,11 +155,15 @@ class ScreenRegister extends StatelessWidget {
                         );
                         final value = await ApiServices().register(restaurant);
                         if (value) {
+                          showSnack(
+                              context, Colors.green, 'Logged Successfully');
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => ScreenMain(),
                             ),
                           );
+                        } else {
+                          showSnack(context, Colors.red, 'Invalid entries');
                         }
                       }
                     },
