@@ -88,7 +88,7 @@ class DishModel {
       name: json['name'],
       description: json['description'],
       price: json['price'],
-      image: json['image'],
+      image: json['imageUrl'],
       quantity: json['quantity'],
       categoryId: json['categoryId'],
       isVeg: json['isVeg'],

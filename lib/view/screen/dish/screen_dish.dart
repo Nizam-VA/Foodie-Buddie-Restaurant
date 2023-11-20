@@ -25,8 +25,15 @@ class ScreenDish extends StatelessWidget {
               width: width,
               height: height * .25,
               decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(20)),
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: dish!.image == ''
+                      ? const AssetImage('assets/images/categories/dish.jpg')
+                          as ImageProvider
+                      : NetworkImage(dish!.image!),
+                ),
+              ),
             ),
             kHight10,
             Container(

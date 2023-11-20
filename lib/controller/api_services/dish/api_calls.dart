@@ -10,12 +10,13 @@ class DishApiServices {
     final bearer = await getToken();
     try {
       final body = FormData.fromMap(dish.toJson(dish));
-      final response = await dio.post('/seller/addDish',
+      final response = await dio.post(ApiEndPoints.addDish,
           data: body,
           options: Options(headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': 'Bearer $bearer'
           }));
+      print(response.data);
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -62,5 +63,18 @@ class DishApiServices {
       print(e.toString());
       return [];
     }
+  }
+
+  Future<void> deleteDish(int dishId) async {
+    final token = await getToken();
+    final response = await dio.delete(
+      '${ApiEndPoints.deleteOrUpdateDish}$dishId',
+      options: Options(headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      }),
+    );
+    print(response.statusCode);
   }
 }
