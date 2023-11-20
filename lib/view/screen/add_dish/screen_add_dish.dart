@@ -15,8 +15,12 @@ import 'package:foodiebuddierestaurant/view/widgets/functions/snack_bar.dart';
 import 'package:foodiebuddierestaurant/view/widgets/text_field_widget.dart';
 import 'package:image_picker/image_picker.dart';
 
+enum Operation { add, edit }
+
 class ScreenAddDishes extends StatelessWidget {
-  ScreenAddDishes({super.key, required this.categories});
+  ScreenAddDishes({super.key, required this.categories, this.dish});
+
+  initTextControllers() {}
 
   final formKey = GlobalKey<FormState>();
   final dishController = TextEditingController();
@@ -26,6 +30,7 @@ class ScreenAddDishes extends StatelessWidget {
   bool isVeg = false;
   bool isAvailable = false;
   int categoryId = 0;
+  DishModel? dish;
   final List<Category> categories;
   XFile? imagePath;
   String image = '';
