@@ -27,6 +27,11 @@ final class AddNewDishState extends DishState {
   AddNewDishState({required this.isLoading});
 }
 
+final class UpdateDishState extends DishState {
+  final bool isLoading;
+  UpdateDishState({required this.isLoading});
+}
+
 final class GetDishesByCategoryState extends DishState {
   final List<DishModel> dishes;
   GetDishesByCategoryState({required this.dishes});

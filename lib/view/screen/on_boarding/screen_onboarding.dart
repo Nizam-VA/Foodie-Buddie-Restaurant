@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/view/screen/login/screen_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenOnboard extends StatelessWidget {
   ScreenOnboard({super.key});
@@ -60,13 +61,17 @@ class ScreenOnboard extends StatelessWidget {
                 SizedBox(
                   width: width * .3,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      preferences.setBool('ON_BOARD', true);
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => ScreenLoginRegister()));
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     child: Text(position == 2 ? "Let's Start" : 'Skip'),
                   ),

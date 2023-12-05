@@ -10,7 +10,7 @@ class CategoriesApiServices {
 
   Future<List<Category>> fetchAllCategories() async {
     try {
-      const url = '$baseUrl/admin/categories';
+      const url = '$baseUrl/categories';
       String token = await getToken();
       final response = await http.get(
         Uri.parse(url),

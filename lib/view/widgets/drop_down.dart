@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodiebuddierestaurant/controller/api_services/categories/api_calls.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/dish/dish_bloc.dart';
 import 'package:foodiebuddierestaurant/model/category.dart';
+import 'package:foodiebuddierestaurant/model/dish.dart';
+import 'package:foodiebuddierestaurant/view/screen/add_dish/screen_add_dish.dart';
 
 class DropDownWidget extends StatelessWidget {
-  DropDownWidget({super.key, required this.categories, required this.title});
+  DropDownWidget({
+    super.key,
+    required this.categories,
+    required this.title,
+    this.dish,
+    required this.operation,
+  });
 
   final List<Category> categories;
-  final List<String> categoryList = [];
-  final List<int> categoryId = [];
   final String title;
   String category = '';
+  DishModel? dish;
+  Operation operation;
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < categories.length; i++) {
-      categoryList.add(categories[i].name);
-      categoryId.add(categories[i].id);
-    }
-
+    category = dish != null
+        ? categories
+            .firstWhere((element) => element.id == dish!.categoryId)
+            .name
+        : '';
     return DropdownButtonFormField(
       validator: (value) {
         if (value == null) return 'Choose category';
       },
       decoration: InputDecoration(
-        label: Text(title),
+        label: Text(dish != null ? category : title),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 18,
           vertical: 10,
@@ -34,20 +41,19 @@ class DropDownWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      items: categoryList.map((category) {
+      items: categories.map((cat) {
+        print(categories.length);
         return DropdownMenuItem(
-          value: category,
-          child: Text(category),
+          value: cat,
+          child: Text(cat.name),
         );
       }).toList(),
       onChanged: (value) async {
-        category = value.toString();
-        await CategoriesApiServices().fetchAllCategories();
-        int index = categoryList.indexOf(category);
+        category = value!.name;
 
         context.read<DishBloc>().add(
               AddCategoryEvent(
-                categoryId: categoryId[index],
+                categoryId: value.id,
               ),
             );
       },

@@ -41,5 +41,19 @@ class DishBloc extends Bloc<DishEvent, DishState> {
           await DishApiServices().fetchDishesbyCategory(event.categoryId);
       emit(GetDishesByCategoryState(dishes: dishes));
     });
+
+    on<UpdateDishEvent>((event, emit) async {
+      final result = await DishApiServices().updateDish(event.dishModel);
+      if (result) {
+        emit(UpdateDishState(isLoading: false));
+        showSnack(event.context, Colors.green, 'Updated Successfully .');
+        Navigator.pop(event.context);
+      } else {
+        showSnack(event.context, Colors.red, 'Not updated.');
+      }
+      List<DishModel> dishes = await DishApiServices()
+          .fetchDishesbyCategory(event.dishModel.categoryId);
+      emit(GetDishesByCategoryState(dishes: dishes));
+    });
   }
 }

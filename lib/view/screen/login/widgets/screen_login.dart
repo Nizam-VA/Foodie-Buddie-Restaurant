@@ -101,8 +101,9 @@ class ScreenLogin extends StatelessWidget {
                         if (value) {
                           showSnack(
                               context, Colors.green, 'Logged Successfully');
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ScreenMain()));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => ScreenMain()));
                         } else {
                           showSnack(context, Colors.red, 'Invalid entries');
                         }

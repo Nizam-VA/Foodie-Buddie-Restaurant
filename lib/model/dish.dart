@@ -96,7 +96,7 @@ class DishModel {
     );
   }
 
-  Map<String, dynamic> toJson(Dish dish) {
+  Map<String, dynamic> toJson(DishModel dish) {
     final Map<String, dynamic> data = {
       'name': dish.name,
       'description': dish.description,

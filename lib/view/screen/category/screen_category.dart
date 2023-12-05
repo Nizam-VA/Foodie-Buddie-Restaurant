@@ -104,6 +104,8 @@ class ScreenCategory extends StatelessWidget {
                                                         ScreenAddDishes(
                                                       categories:
                                                           state.categories,
+                                                      operation: Operation.edit,
+                                                      dish: dish,
                                                     ),
                                                   ),
                                                 );

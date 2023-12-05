@@ -17,31 +17,74 @@ import 'package:image_picker/image_picker.dart';
 
 enum Operation { add, edit }
 
-class ScreenAddDishes extends StatelessWidget {
-  ScreenAddDishes({super.key, required this.categories, this.dish});
+class ScreenAddDishes extends StatefulWidget {
+  ScreenAddDishes(
+      {super.key,
+      required this.categories,
+      this.dish,
+      required this.operation});
 
-  initTextControllers() {}
-
-  final formKey = GlobalKey<FormState>();
-  final dishController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final priceController = TextEditingController();
-  final quantityController = TextEditingController();
-  bool isVeg = false;
-  bool isAvailable = false;
-  int categoryId = 0;
+  Operation operation;
   DishModel? dish;
   final List<Category> categories;
+
+  @override
+  State<ScreenAddDishes> createState() => _ScreenAddDishesState();
+}
+
+class _ScreenAddDishesState extends State<ScreenAddDishes> {
+  initTextControllers() {
+    if (widget.dish != null) {
+      dishController.text = widget.dish!.name;
+      descriptionController.text = widget.dish!.description;
+      priceController.text = widget.dish!.price.toString();
+      quantityController.text = widget.dish!.quantity.toString();
+      isVeg = widget.dish!.isVeg;
+      isAvailable = widget.dish!.isAvailable;
+      image = widget.dish!.image!;
+    }
+  }
+
+  final formKey = GlobalKey<FormState>();
+
+  final dishController = TextEditingController();
+
+  final descriptionController = TextEditingController();
+
+  final priceController = TextEditingController();
+
+  final quantityController = TextEditingController();
+
+  bool isVeg = false;
+
+  bool isAvailable = false;
+
+  int categoryId = 0;
+
   XFile? imagePath;
+
   String image = '';
+
+  @override
+  void initState() {
+    if (widget.operation == Operation.edit) {
+      initTextControllers();
+      print(widget.dish!.dishId);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(56),
-        child: AppBarWidget(title: 'Add New Dish'),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: AppBarWidget(
+            title: widget.operation == Operation.add
+                ? 'Add New Dish'
+                : 'Update Dish'),
       ),
       body: BlocBuilder<DishBloc, DishState>(
         builder: (context, state) {
@@ -64,22 +107,27 @@ class ScreenAddDishes extends StatelessWidget {
                               }
                             },
                             child: Container(
-                                width: width,
-                                height: height * .25,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(width: .5),
-                                ),
-                                child: image != ''
-                                    ? Image.file(File(image))
-                                    : const Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.add_a_photo, size: 30),
-                                          Text('Add Image')
-                                        ],
-                                      )),
+                              width: width,
+                              height: height * .25,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(width: .5),
+                              ),
+                              child: widget.operation == Operation.add
+                                  ? image != ''
+                                      ? Image.file(File(image))
+                                      : const Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.add_a_photo, size: 30),
+                                            Text('Add Image')
+                                          ],
+                                        )
+                                  : image != ''
+                                      ? Image.network(image)
+                                      : null,
+                            ),
                           ),
                           kHight10,
                           TextFieldWidget(
@@ -127,12 +175,19 @@ class ScreenAddDishes extends StatelessWidget {
                             buildWhen: (previous, current) =>
                                 current is AddCategoryState,
                             builder: (context, state) {
+                              print(widget.dish);
                               categoryId = state is AddCategoryState
                                   ? state.categoryId
                                   : 0;
-                              print(categoryId);
+
                               return DropDownWidget(
-                                  categories: categories, title: 'Category');
+                                categories: widget.categories,
+                                title: 'Category',
+                                dish: widget.operation == Operation.add
+                                    ? null
+                                    : widget.dish,
+                                operation: widget.operation,
+                              );
                             },
                           ),
                           Row(
@@ -146,7 +201,7 @@ class ScreenAddDishes extends StatelessWidget {
                                   return Switch(
                                     value: state is AddVegState
                                         ? state.isVeg
-                                        : false,
+                                        : isVeg,
                                     onChanged: (value) {
                                       context.read<DishBloc>().add(
                                             AddVegEvent(isVeg: value),
@@ -170,7 +225,7 @@ class ScreenAddDishes extends StatelessWidget {
                                   return Switch(
                                     value: state is AddAvailState
                                         ? state.isAvail
-                                        : false,
+                                        : isAvailable,
                                     onChanged: (value) {
                                       context.read<DishBloc>().add(
                                             AddAvailableEvent(
@@ -187,30 +242,55 @@ class ScreenAddDishes extends StatelessWidget {
                           kHight10,
                           ButtonWidget(
                             width: width,
-                            text: 'Add dish',
+                            text: widget.operation == Operation.add
+                                ? 'Add dish'
+                                : 'Update',
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
                                 if (image == '') {
                                   showSnack(context, Colors.red,
                                       'Image is mandatory');
                                 } else {
-                                  MultipartFile imageFile =
-                                      await MultipartFile.fromFile(image);
-                                  Dish dish = Dish(
-                                    dishId: 0,
-                                    sellerId: 0,
-                                    name: dishController.text,
-                                    description: descriptionController.text,
-                                    price: int.parse(priceController.text),
-                                    image: imageFile,
-                                    quantity:
-                                        int.parse(quantityController.text),
-                                    categoryId: categoryId,
-                                    isVeg: isVeg,
-                                    isAvailable: isAvailable,
-                                  );
-                                  context.read<DishBloc>().add(AddNewDishEvent(
-                                      dish: dish, context: context));
+                                  if (widget.operation == Operation.add) {
+                                    MultipartFile imageFile =
+                                        await MultipartFile.fromFile(image);
+                                    Dish dish = Dish(
+                                      dishId: 0,
+                                      sellerId: 0,
+                                      name: dishController.text,
+                                      description: descriptionController.text,
+                                      price: int.parse(priceController.text),
+                                      image: imageFile,
+                                      quantity:
+                                          int.parse(quantityController.text),
+                                      categoryId: categoryId,
+                                      isVeg: isVeg,
+                                      isAvailable: isAvailable,
+                                    );
+                                    context.read<DishBloc>().add(
+                                        AddNewDishEvent(
+                                            dish: dish, context: context));
+                                  } else {
+                                    DishModel dishModel = DishModel(
+                                      dishId: widget.dish!.dishId,
+                                      sellerId: 0,
+                                      name: dishController.text,
+                                      description: descriptionController.text,
+                                      price: int.parse(priceController.text),
+                                      image: widget.dish!.image,
+                                      quantity:
+                                          int.parse(quantityController.text),
+                                      categoryId: categoryId,
+                                      isVeg: widget.dish!.isVeg,
+                                      isAvailable: widget.dish!.isAvailable,
+                                    );
+                                    // await DishApiServices()
+                                    //     .updateDish(dishModel);
+                                    context.read<DishBloc>().add(
+                                        UpdateDishEvent(
+                                            dishModel: dishModel,
+                                            context: context));
+                                  }
                                 }
                                 // Navigator.of(context).push(
                                 //   MaterialPageRoute(

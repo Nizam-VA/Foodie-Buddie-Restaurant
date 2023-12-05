@@ -77,4 +77,29 @@ class DishApiServices {
     );
     print(response.statusCode);
   }
+
+  Future<bool> updateDish(DishModel dishModel) async {
+    try {
+      final token = await getToken();
+      final response = await dio.put(
+        '${ApiEndPoints.deleteOrUpdateDish}${dishModel.dishId}',
+        data: dishModel.toJson(dishModel),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

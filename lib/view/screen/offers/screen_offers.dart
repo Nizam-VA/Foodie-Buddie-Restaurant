@@ -1,13 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodiebuddierestaurant/controller/blocs/offer/offer_bloc.dart';
+import 'package:foodiebuddierestaurant/view/screen/add_offer/screen_add_offer.dart';
+import 'package:foodiebuddierestaurant/view/widgets/app_bar.dart';
+import 'package:foodiebuddierestaurant/view/widgets/button_widget.dart';
+import 'package:foodiebuddierestaurant/view/widgets/section_header.dart';
 
 class ScreenOffers extends StatelessWidget {
   const ScreenOffers({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Home screen'),
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    context.read<OfferBloc>().add(GetAllOffersEvent());
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(56),
+        child: AppBarWidget(title: 'Offers'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: BlocBuilder<OfferBloc, OfferState>(
+          builder: (context, state) {
+            return ListView.builder(
+              itemCount: state.offers.length,
+              itemBuilder: (context, index) {
+                return Stack(
+                  children: [
+                    Container(
+                      width: width,
+                      height: height * .25,
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.green),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            'assets/images/icons/gift-box.png',
+                            height: height * .1,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SectionHead(
+                                  heading: state.offers[index].offerTitle),
+                              Text(
+                                  'Starts ${state.offers[index].startDate.substring(0, 10)}'),
+                              Text(
+                                  'End with ${state.offers[index].endDate.substring(0, 10)}'),
+                              Text(state.offers[index].status),
+                            ],
+                          ),
+                          ButtonWidget(
+                            width: width * .5,
+                            text: 'Update',
+                            onPressed: () async {},
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ScreenAddOffer(),
+            ),
+          );
+        },
       ),
     );
   }

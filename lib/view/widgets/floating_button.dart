@@ -16,8 +16,10 @@ class FloatingButton extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) =>
-                    ScreenAddDishes(categories: state.categories),
+                builder: (context) => ScreenAddDishes(
+                  categories: state.categories,
+                  operation: Operation.add,
+                ),
               ),
             );
           },

@@ -3,4 +3,8 @@ class ApiEndPoints {
   static const addDish = '/seller/addDish';
   static const getDishesByCategory = '/seller/dishes?category=';
   static const deleteOrUpdateDish = '/seller/dishes/';
+  static const getAllOffers = '/seller/offers';
+  static const addOffers = '/seller/offers/addOffer';
+  static const getAllOrders = '/seller/orders';
+  static const getOrderById = '/seller/orders/';
 }

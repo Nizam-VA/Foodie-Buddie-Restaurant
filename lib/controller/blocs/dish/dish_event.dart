@@ -27,3 +27,9 @@ class GetDishesByCategoryEvent extends DishEvent {
   final int categoryId;
   GetDishesByCategoryEvent({required this.categoryId});
 }
+
+class UpdateDishEvent extends DishEvent {
+  final DishModel dishModel;
+  final BuildContext context;
+  UpdateDishEvent({required this.dishModel, required this.context});
+}

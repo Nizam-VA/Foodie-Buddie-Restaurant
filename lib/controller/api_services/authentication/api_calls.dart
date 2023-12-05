@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodiebuddierestaurant/model/restaurant.dart';
 import 'package:foodiebuddierestaurant/utils/tokens.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiServices {
   static const String baseUrl = 'http://10.0.2.2:8080';
@@ -51,6 +52,8 @@ class ApiServices {
       print(response.statusCode);
       print(response.body);
       if (response.statusCode == 200) {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool('LOGIN', true);
         final body = jsonDecode(response.body) as Map;
         saveToken(body['token']);
         return true;
