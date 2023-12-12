@@ -50,7 +50,7 @@ class ScreenHome extends StatelessWidget {
                               // style: DefaultTextStyle.of(cxt).style,
                               children: <TextSpan>[
                                 const TextSpan(
-                                    text: 'Hello Welcome\n',
+                                    text: '\nHello Welcome\n',
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,
@@ -58,17 +58,16 @@ class ScreenHome extends StatelessWidget {
                                 TextSpan(
                                   text: state.profile?.name ?? 'Hotel Name',
                                   style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ],
                             ),
                           );
                         },
                       ),
-                      const CircleAvatar(
-                          radius: 24, backgroundColor: Colors.white)
                     ],
                   ),
                   kHight20,
@@ -121,8 +120,9 @@ class ScreenHome extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
-                                        'assets/images/icons/revenue.png',
-                                        height: 18),
+                                      'assets/images/icons/revenue.png',
+                                      height: 28,
+                                    ),
                                     const Text("Today's revenue")
                                   ],
                                 )
@@ -147,14 +147,15 @@ class ScreenHome extends StatelessWidget {
                     children: [
                       const SectionHead(heading: 'Recent orders'),
                       TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ScreenOrders(),
-                              ),
-                            );
-                          },
-                          child: const Text('View All'))
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ScreenOrders(),
+                            ),
+                          );
+                        },
+                        child: const Text('View All'),
+                      )
                     ],
                   ),
                   BlocBuilder<OrderBloc, OrderState>(

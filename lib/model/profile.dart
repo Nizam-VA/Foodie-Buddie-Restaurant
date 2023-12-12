@@ -35,7 +35,6 @@ class Profile {
       'sellerId': profile.sellerId,
       'status': profile.status,
     };
-
     return data;
   }
 }
