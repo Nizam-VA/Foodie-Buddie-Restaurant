@@ -50,6 +50,7 @@ class ScreenCategory extends StatelessWidget {
                             dish = state is GetDishesByCategoryState
                                 ? state.dishes[index]
                                 : null;
+                            print(dish!.name);
                             print(state is GetDishesByCategoryState
                                 ? state.dishes[index].image
                                 : '');
@@ -96,40 +97,53 @@ class ScreenCategory extends StatelessWidget {
                                     child: BlocBuilder<CategoryBloc,
                                         CategoryState>(
                                       builder: (context, state) {
+                                        final categories = state.categories;
                                         return Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ScreenAddDishes(
-                                                      categories:
-                                                          state.categories,
-                                                      operation: Operation.edit,
-                                                      dish: dish,
-                                                    ),
+                                            BlocBuilder<DishBloc, DishState>(
+                                              builder: (context, state) {
+                                                return IconButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ScreenAddDishes(
+                                                          categories:
+                                                              categories,
+                                                          operation:
+                                                              Operation.edit,
+                                                          dish: state
+                                                                  is GetDishesByCategoryState
+                                                              ? state
+                                                                  .dishes[index]
+                                                              : dish,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  icon: const Icon(
+                                                    CupertinoIcons
+                                                        .eyedropper_halffull,
                                                   ),
                                                 );
                                               },
-                                              icon: const Icon(
-                                                CupertinoIcons
-                                                    .eyedropper_halffull,
-                                              ),
                                             ),
                                             IconButton(
                                               onPressed: () async {
                                                 await DishApiServices()
                                                     .deleteDish(dish!.dishId)
-                                                    .then((value) => context
-                                                        .read<DishBloc>()
-                                                        .add(
+                                                    .then(
+                                                      (value) => context
+                                                          .read<DishBloc>()
+                                                          .add(
                                                             GetDishesByCategoryEvent(
-                                                                categoryId:
-                                                                    category
-                                                                        .id)));
+                                                              categoryId:
+                                                                  category.id,
+                                                            ),
+                                                          ),
+                                                    );
                                               },
                                               icon: const Icon(
                                                 CupertinoIcons.delete,
@@ -149,7 +163,8 @@ class ScreenCategory extends StatelessWidget {
                                 kHight10,
                               ],
                             );
-                          });
+                          },
+                        );
                 },
               ),
             ),

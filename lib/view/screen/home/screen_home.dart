@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/order/order_bloc.dart';
+import 'package:foodiebuddierestaurant/controller/blocs/profile/profile_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/sales_report/sales_report_bloc.dart';
 import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/utils/text_styles.dart';
@@ -20,6 +21,7 @@ class ScreenHome extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     context.read<OrderBloc>().add(GetAllOrdersEvent());
     context.read<SalesReportBloc>().add(GetDailySalesReportEvent());
+    context.read<ProfileBloc>().add(GetProfileEvent());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -41,25 +43,29 @@ class ScreenHome extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RichText(
-                        text: const TextSpan(
-                          // style: DefaultTextStyle.of(cxt).style,
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: 'Good evening\n',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                )),
-                            TextSpan(
-                              text: 'Hotel Name',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                      BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          return RichText(
+                            text: TextSpan(
+                              // style: DefaultTextStyle.of(cxt).style,
+                              children: <TextSpan>[
+                                const TextSpan(
+                                    text: 'Hello Welcome\n',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    )),
+                                TextSpan(
+                                  text: state.profile?.name ?? 'Hotel Name',
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                       const CircleAvatar(
                           radius: 24, backgroundColor: Colors.white)
@@ -207,7 +213,7 @@ class ScreenHome extends StatelessWidget {
                     children: [
                       const SectionHead(heading: 'Categories'),
                       TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ScreenAllCategories(),

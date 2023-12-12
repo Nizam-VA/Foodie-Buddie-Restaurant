@@ -31,23 +31,24 @@ class ScreenRegister extends StatelessWidget {
             kHight10,
             const Text('Welcome',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-            const Text('Login to your account', style: TextStyle(fontSize: 18)),
+            const Text('Sign up to your account',
+                style: TextStyle(fontSize: 18)),
             kHight20,
             Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add_a_photo),
-                        const Text('add image')
-                      ],
-                    ),
-                  ),
+                  // CircleAvatar(
+                  //   radius: 50,
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Icon(Icons.add_a_photo),
+                  //       const Text('add image')
+                  //     ],
+                  //   ),
+                  // ),
                   kHight10,
                   TextFieldWidget(
                     userController: hotelNameController,
@@ -157,7 +158,7 @@ class ScreenRegister extends StatelessWidget {
                         if (value) {
                           showSnack(
                               context, Colors.green, 'Logged Successfully');
-                          Navigator.of(context).push(
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => ScreenMain(),
                             ),

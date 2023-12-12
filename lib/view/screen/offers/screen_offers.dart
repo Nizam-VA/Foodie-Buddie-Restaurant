@@ -25,58 +25,61 @@ class ScreenOffers extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: BlocBuilder<OfferBloc, OfferState>(
           builder: (context, state) {
-            return ListView.builder(
-              itemCount: state.offers.length,
-              itemBuilder: (context, index) {
-                return Stack(
-                  children: [
-                    Container(
-                      width: width,
-                      height: height * .25,
-                      padding: const EdgeInsets.all(12),
-                      margin: const EdgeInsets.symmetric(vertical: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.green),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            return state.offers.isEmpty
+                ? Center(child: Image.asset('assets/images/icons/empty.gif'))
+                : ListView.builder(
+                    itemCount: state.offers.length,
+                    itemBuilder: (context, index) {
+                      return Stack(
                         children: [
-                          Image.asset(
-                            'assets/images/icons/gift-box.png',
-                            height: height * .1,
+                          Container(
+                            width: width,
+                            height: height * .25,
+                            padding: const EdgeInsets.all(12),
+                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.green),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  'assets/images/icons/gift-box.png',
+                                  height: height * .1,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SectionHead(
+                                        heading:
+                                            state.offers[index].offerTitle),
+                                    BlocBuilder<CategoryBloc, CategoryState>(
+                                      builder: (context, state) {
+                                        return Text(
+                                            'for ${state.categories[index].name}');
+                                      },
+                                    ),
+                                    Text(
+                                        'Starts ${state.offers[index].startDate.substring(0, 10)}'),
+                                    Text(
+                                        'End with ${state.offers[index].endDate.substring(0, 10)}'),
+                                    Text(state.offers[index].status),
+                                  ],
+                                ),
+                                CircleAvatar(
+                                  radius: 40,
+                                  child: Text(
+                                      '${state.offers[index].offerPercentage}%',
+                                      style: boldWhite),
+                                )
+                              ],
+                            ),
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SectionHead(
-                                  heading: state.offers[index].offerTitle),
-                              BlocBuilder<CategoryBloc, CategoryState>(
-                                builder: (context, state) {
-                                  return Text(
-                                      'for ${state.categories[index].name}');
-                                },
-                              ),
-                              Text(
-                                  'Starts ${state.offers[index].startDate.substring(0, 10)}'),
-                              Text(
-                                  'End with ${state.offers[index].endDate.substring(0, 10)}'),
-                              Text(state.offers[index].status),
-                            ],
-                          ),
-                          CircleAvatar(
-                            radius: 40,
-                            child: Text(
-                                '${state.offers[index].offerPercentage}%',
-                                style: boldWhite),
-                          )
                         ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-            );
+                      );
+                    },
+                  );
           },
         ),
       ),

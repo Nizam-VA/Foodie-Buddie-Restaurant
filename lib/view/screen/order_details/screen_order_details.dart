@@ -7,6 +7,7 @@ import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/utils/text_styles.dart';
 import 'package:foodiebuddierestaurant/view/widgets/app_bar.dart';
 import 'package:foodiebuddierestaurant/view/widgets/section_header.dart';
+import 'package:intl/intl.dart';
 
 class ScreenOrderDetails extends StatelessWidget {
   ScreenOrderDetails({super.key, required this.order});
@@ -58,7 +59,8 @@ class ScreenOrderDetails extends StatelessWidget {
                         children: [
                           const Text('Order on: '),
                           Text(
-                            order.orderDate.substring(0, 10),
+                            DateFormat("  d MMMM yyy")
+                                .format(DateTime.parse(order.orderDate)),
                             style: semiBoldGreen,
                           ),
                         ],

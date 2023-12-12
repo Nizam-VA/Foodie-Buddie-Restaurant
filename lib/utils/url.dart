@@ -9,4 +9,5 @@ class ApiEndPoints {
   static const getAllOrders = '/seller/orders';
   static const getOrderById = '/seller/orders/';
   static const dailyStatus = '/seller/sales?filter=daily';
+  static const getSellerProfile = '/seller/profile';
 }

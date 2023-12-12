@@ -28,11 +28,11 @@ class ScreenDish extends StatelessWidget {
                 border: Border.all(),
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: dish!.image == ''
-                      ? const AssetImage('assets/images/categories/dish.jpg')
-                          as ImageProvider
-                      : NetworkImage(dish!.image!),
-                ),
+                    image: dish!.image == ''
+                        ? const AssetImage('assets/images/categories/dish.jpg')
+                            as ImageProvider
+                        : NetworkImage(dish!.image!),
+                    fit: BoxFit.cover),
               ),
             ),
             kHight10,

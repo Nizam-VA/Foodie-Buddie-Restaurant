@@ -5,6 +5,7 @@ import 'package:foodiebuddierestaurant/controller/blocs/category/category_bloc.d
 import 'package:foodiebuddierestaurant/controller/blocs/dish/dish_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/offer/offer_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/order/order_bloc.dart';
+import 'package:foodiebuddierestaurant/controller/blocs/profile/profile_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/sales_report/sales_report_bloc.dart';
 import 'package:foodiebuddierestaurant/view/screen/splash/screen_splash.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => OfferBloc()),
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => SalesReportBloc()),
+        BlocProvider(create: (context) => ProfileBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
