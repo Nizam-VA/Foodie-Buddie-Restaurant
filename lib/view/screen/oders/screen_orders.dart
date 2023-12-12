@@ -4,6 +4,7 @@ import 'package:foodiebuddierestaurant/controller/blocs/order/order_bloc.dart';
 import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/utils/text_styles.dart';
 import 'package:foodiebuddierestaurant/view/screen/order_details/screen_order_details.dart';
+import 'package:intl/intl.dart';
 
 class ScreenOrders extends StatelessWidget {
   const ScreenOrders({super.key});
@@ -59,7 +60,7 @@ class ScreenOrders extends StatelessWidget {
                         },
                         child: Container(
                           width: width,
-                          height: height * .25,
+                          // height: height * .25,
                           padding: const EdgeInsets.all(18),
                           margin: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
@@ -78,7 +79,7 @@ class ScreenOrders extends StatelessWidget {
                                   Text(
                                     state.orders[index].orderId.toString(),
                                     overflow: TextOverflow.ellipsis,
-                                    style: semiBoldBlack,
+                                    style: boldGreen,
                                   ),
                                 ],
                               ),
@@ -89,9 +90,11 @@ class ScreenOrders extends StatelessWidget {
                                 children: [
                                   const Text('Order on: '),
                                   Text(
-                                    state.orders[index].orderDate
-                                        .substring(0, 10),
-                                    style: semiBoldBlack,
+                                    DateFormat("d MMM yyyy").format(
+                                      DateTime.parse(
+                                          state.orders[index].deliveryDate),
+                                    ),
+                                    style: semiBoldGreen,
                                   ),
                                 ],
                               ),
@@ -103,7 +106,7 @@ class ScreenOrders extends StatelessWidget {
                                   const Text('Item count: '),
                                   Text(
                                     state.orders[index].itemCount.toString(),
-                                    style: semiBoldBlack,
+                                    style: semiBoldGreen,
                                   ),
                                 ],
                               ),
@@ -115,7 +118,7 @@ class ScreenOrders extends StatelessWidget {
                                   const Text('Delivery Status: '),
                                   Text(
                                     state.orders[index].orderStatus,
-                                    style: semiBoldBlack,
+                                    style: semiBoldGreen,
                                   ),
                                 ],
                               ),
@@ -140,65 +143,88 @@ class ScreenOrders extends StatelessWidget {
                   return ListView.builder(
                     itemCount: orders.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        width: width,
-                        height: height * .25,
-                        padding: const EdgeInsets.all(18),
-                        margin: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.green),
-                        ),
-                        child: Column(
-                          children: [
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Order Id: '),
-                                Text(
-                                  orders[index].transactionId.substring(10),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: semiBoldBlack,
-                                ),
-                              ],
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ScreenOrderDetails(
+                                order: orders[index],
+                              ),
                             ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Order on: '),
-                                Text(
-                                  orders[index].orderDate.substring(0, 10),
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Item count: '),
-                                Text(
-                                  orders[index].itemCount.toString(),
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Delivery Status: '),
-                                Text(
-                                  orders[index].orderStatus,
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                          ],
+                          );
+                        },
+                        child: Container(
+                          width: width,
+                          // height: height * .25,
+                          padding: const EdgeInsets.all(18),
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.green),
+                          ),
+                          child: Column(
+                            children: [
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Order Id: '),
+                                  Text(
+                                    orders[index].orderId.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Order on: '),
+                                  Text(
+                                    DateFormat("d MMM yyyy").format(
+                                      DateTime.parse(
+                                          orders[index].deliveryDate),
+                                    ),
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Item count: '),
+                                  Text(
+                                    orders[index].itemCount.toString(),
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Delivery Status: '),
+                                  Text(
+                                    orders[index].orderStatus,
+                                    style: orders[index].orderStatus ==
+                                                'COOKING' ||
+                                            orders[index].orderStatus ==
+                                                'FOOD READY'
+                                        ? semiBoldBlack
+                                        : semiBoldGreen,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -217,65 +243,83 @@ class ScreenOrders extends StatelessWidget {
                   return ListView.builder(
                     itemCount: orders.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        width: width,
-                        height: height * .25,
-                        padding: const EdgeInsets.all(18),
-                        margin: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.green),
-                        ),
-                        child: Column(
-                          children: [
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Order Id: '),
-                                Text(
-                                  orders[index].transactionId.substring(10),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: semiBoldBlack,
-                                ),
-                              ],
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ScreenOrderDetails(
+                                order: orders[index],
+                              ),
                             ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Order on: '),
-                                Text(
-                                  orders[index].orderDate.substring(0, 10),
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Item count: '),
-                                Text(
-                                  orders[index].itemCount.toString(),
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Delivery Status: '),
-                                Text(
-                                  orders[index].orderStatus,
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                          ],
+                          );
+                        },
+                        child: Container(
+                          width: width,
+                          height: height * .25,
+                          padding: const EdgeInsets.all(18),
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.green),
+                          ),
+                          child: Column(
+                            children: [
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Order Id: '),
+                                  Text(
+                                    orders[index].orderId.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Order on: '),
+                                  Text(
+                                    DateFormat("d MMM yyyy").format(
+                                      DateTime.parse(
+                                          orders[index].deliveryDate),
+                                    ),
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Item count: '),
+                                  Text(
+                                    orders[index].itemCount.toString(),
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Delivery Status: '),
+                                  Text(
+                                    orders[index].orderStatus,
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -294,65 +338,83 @@ class ScreenOrders extends StatelessWidget {
                   return ListView.builder(
                     itemCount: orders.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        width: width,
-                        height: height * .25,
-                        padding: const EdgeInsets.all(18),
-                        margin: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.green),
-                        ),
-                        child: Column(
-                          children: [
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Order Id: '),
-                                Text(
-                                  orders[index].transactionId.substring(10),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: semiBoldBlack,
-                                ),
-                              ],
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ScreenOrderDetails(
+                                order: orders[index],
+                              ),
                             ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Order on: '),
-                                Text(
-                                  orders[index].orderDate.substring(0, 10),
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Item count: '),
-                                Text(
-                                  orders[index].itemCount.toString(),
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('Delivery Status: '),
-                                Text(
-                                  orders[index].orderStatus,
-                                  style: semiBoldBlack,
-                                ),
-                              ],
-                            ),
-                            kHight10,
-                          ],
+                          );
+                        },
+                        child: Container(
+                          width: width,
+                          height: height * .25,
+                          padding: const EdgeInsets.all(18),
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.green),
+                          ),
+                          child: Column(
+                            children: [
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Order Id: '),
+                                  Text(
+                                    orders[index].orderId.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Order on: '),
+                                  Text(
+                                    DateFormat("d MMM yyyy").format(
+                                      DateTime.parse(
+                                          orders[index].deliveryDate),
+                                    ),
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Item count: '),
+                                  Text(
+                                    orders[index].itemCount.toString(),
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Delivery Status: '),
+                                  Text(
+                                    orders[index].orderStatus,
+                                    style: semiBoldBlack,
+                                  ),
+                                ],
+                              ),
+                              kHight10,
+                            ],
+                          ),
                         ),
                       );
                     },

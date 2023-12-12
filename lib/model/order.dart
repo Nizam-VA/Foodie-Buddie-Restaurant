@@ -8,10 +8,10 @@ class Order {
   final String deliveryDate;
   final String paymentMethod;
   final String transactionId;
-  final int itemCount;
-  final int discount;
-  final int deliveryCharge;
-  final int totalPrice;
+  final num itemCount;
+  final num discount;
+  final num deliveryCharge;
+  final num totalPrice;
   final String orderStatus;
   final String paymentStatus;
 

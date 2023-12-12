@@ -34,5 +34,6 @@ final class UpdateDishState extends DishState {
 
 final class GetDishesByCategoryState extends DishState {
   final List<DishModel> dishes;
+
   GetDishesByCategoryState({required this.dishes});
 }

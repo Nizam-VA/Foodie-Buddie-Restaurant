@@ -12,5 +12,7 @@ class GetOrderByIdEvent extends OrderEvent {
 class UpdateStatusEvent extends OrderEvent {
   final int orderId;
   final OrderStatus status;
-  UpdateStatusEvent({required this.orderId, required this.status});
+  final BuildContext context;
+  UpdateStatusEvent(
+      {required this.orderId, required this.status, required this.context});
 }

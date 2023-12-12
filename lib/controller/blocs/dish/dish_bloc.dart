@@ -26,13 +26,13 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       emit(AddNewDishState(isLoading: true));
       final result = await DishApiServices().addDish(event.dish);
       if (result) {
-        emit(AddNewDishState(isLoading: false));
         showSnack(event.context, Colors.green, 'Successfully Inserted.');
         Navigator.of(event.context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => ScreenMain()),
             (route) => false);
       } else {
         showSnack(event.context, Colors.red, 'Invalid entries');
+        emit(AddNewDishState(isLoading: false));
       }
     });
 

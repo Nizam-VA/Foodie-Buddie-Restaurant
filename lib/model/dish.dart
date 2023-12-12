@@ -61,7 +61,7 @@ class DishModel {
   final int sellerId;
   final String name;
   final String description;
-  final int price;
+  final num price;
   final String? image;
   final int quantity;
   final int categoryId;

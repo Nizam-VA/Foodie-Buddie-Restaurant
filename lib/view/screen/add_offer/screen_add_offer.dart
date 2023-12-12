@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodiebuddierestaurant/controller/api_services/offer/api_calls.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/category/category_bloc.dart';
+import 'package:foodiebuddierestaurant/controller/blocs/offer/offer_bloc.dart';
 import 'package:foodiebuddierestaurant/model/category.dart';
 import 'package:foodiebuddierestaurant/model/offer.dart';
 import 'package:foodiebuddierestaurant/utils/constants.dart';
@@ -137,15 +137,18 @@ class ScreenAddOffer extends StatelessWidget {
                           percentage: int.parse(offerPerController.text),
                           image: imageFile,
                         );
-                        final value = await OfferApiServices().addOffer(offer);
-                        if (value) {
-                          showSnack(context, Colors.green,
-                              'Offer added successfully.');
-                          Navigator.pop(context);
-                        } else {
-                          showSnack(context, Colors.red,
-                              'Offer not added successfully.');
-                        }
+                        context
+                            .read<OfferBloc>()
+                            .add(AddOfferEvent(offer: offer, context: context));
+                        // final value = await OfferApiServices().addOffer(offer);
+                        // if (value) {
+                        //   showSnack(context, Colors.green,
+                        //       'Offer added successfully.');
+                        //   Navigator.pop(context);
+                        // } else {
+                        //   showSnack(context, Colors.red,
+                        //       'Offer not added successfully.');
+                        // }
                       }
                     }
                   },

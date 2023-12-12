@@ -49,11 +49,11 @@ class DropDownWidget extends StatelessWidget {
         );
       }).toList(),
       onChanged: (value) async {
-        category = value!.name;
-
+        category = value?.name ?? 'Biriyani';
+        // print(value!.name);
         context.read<DishBloc>().add(
               AddCategoryEvent(
-                categoryId: value.id,
+                categoryId: value!.id,
               ),
             );
       },

@@ -74,8 +74,9 @@ class OrderApiServices {
     try {
       final token = await getToken();
       final data = status.toJson(status);
+
       final response = await dio.patch(
-        '/seller/orders/$orderId',
+        '${ApiEndPoints.getOrderById}$orderId',
         options: Options(
           headers: {
             'Content-Type': 'application/json',

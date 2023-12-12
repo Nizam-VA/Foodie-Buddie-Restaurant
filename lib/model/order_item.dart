@@ -1,6 +1,6 @@
 class OrderItem {
   final int quantity;
-  final int salePrice;
+  final num salePrice;
   final int dishId;
   final int sellerId;
   final String name;

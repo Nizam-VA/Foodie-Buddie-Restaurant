@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodiebuddierestaurant/controller/blocs/category/category_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/offer/offer_bloc.dart';
+import 'package:foodiebuddierestaurant/utils/text_styles.dart';
 import 'package:foodiebuddierestaurant/view/screen/add_offer/screen_add_offer.dart';
 import 'package:foodiebuddierestaurant/view/widgets/app_bar.dart';
-import 'package:foodiebuddierestaurant/view/widgets/button_widget.dart';
 import 'package:foodiebuddierestaurant/view/widgets/section_header.dart';
 
 class ScreenOffers extends StatelessWidget {
@@ -14,6 +15,7 @@ class ScreenOffers extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     context.read<OfferBloc>().add(GetAllOffersEvent());
+    context.read<CategoryBloc>().add(CategoryEvent());
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(56),
@@ -49,6 +51,12 @@ class ScreenOffers extends StatelessWidget {
                             children: [
                               SectionHead(
                                   heading: state.offers[index].offerTitle),
+                              BlocBuilder<CategoryBloc, CategoryState>(
+                                builder: (context, state) {
+                                  return Text(
+                                      'for ${state.categories[index].name}');
+                                },
+                              ),
                               Text(
                                   'Starts ${state.offers[index].startDate.substring(0, 10)}'),
                               Text(
@@ -56,10 +64,11 @@ class ScreenOffers extends StatelessWidget {
                               Text(state.offers[index].status),
                             ],
                           ),
-                          ButtonWidget(
-                            width: width * .5,
-                            text: 'Update',
-                            onPressed: () async {},
+                          CircleAvatar(
+                            radius: 40,
+                            child: Text(
+                                '${state.offers[index].offerPercentage}%',
+                                style: boldWhite),
                           )
                         ],
                       ),

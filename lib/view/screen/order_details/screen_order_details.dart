@@ -103,7 +103,9 @@ class ScreenOrderDetails extends StatelessWidget {
                               onChanged: (value) async {
                                 final status = OrderStatus(orderStatus: value!);
                                 context.read<OrderBloc>().add(UpdateStatusEvent(
-                                    orderId: order.orderId, status: status));
+                                    orderId: order.orderId,
+                                    status: status,
+                                    context: context));
                               },
                             ),
                           )

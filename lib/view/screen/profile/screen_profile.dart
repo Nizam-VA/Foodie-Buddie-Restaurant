@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodiebuddierestaurant/utils/text_styles.dart';
 import 'package:foodiebuddierestaurant/view/widgets/app_bar.dart';
-import 'package:foodiebuddierestaurant/view/widgets/section_header.dart';
 
 class ScreenProfile extends StatelessWidget {
   const ScreenProfile({super.key});
@@ -18,8 +18,8 @@ class ScreenProfile extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                  leading: const CircleAvatar(),
-                  title: const SectionHead(heading: 'Hotel Name'),
+                  // leading: const CircleAvatar(),
+                  title: const Text('Hotel Name', style: bigBoldBlack),
                   subtitle: const Text('Mobile Number - email-id'),
                   trailing: TextButton(
                     onPressed: () {},

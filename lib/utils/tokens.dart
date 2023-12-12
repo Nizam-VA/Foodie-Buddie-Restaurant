@@ -8,5 +8,5 @@ Future<String> getToken() async {
 
 saveToken(String token) async {
   final SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setString('token', token);
+  await preferences.setString('token', token);
 }

@@ -10,23 +10,28 @@ class DishApiServices {
     final bearer = await getToken();
     try {
       final body = FormData.fromMap(dish.toJson(dish));
-      final response = await dio.post(ApiEndPoints.addDish,
-          data: body,
-          options: Options(headers: {
+      final response = await dio.post(
+        ApiEndPoints.addDish,
+        options: Options(
+          headers: {
             'Content-Type': 'multipart/form-data',
+            'accept': 'application/json',
             'Authorization': 'Bearer $bearer'
-          }));
-      print(response.data);
+          },
+        ),
+        data: body,
+      );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
       } else {
         return false;
       }
     } on DioException catch (e) {
-      print(e.toString());
+      print("DioException: ${e.message} is the exception");
       return false;
     } catch (e) {
-      print(e.toString());
+      print("Error: $e");
       return false;
     }
   }
@@ -36,13 +41,16 @@ class DishApiServices {
     print(
         '${ApiEndPoints.baseUrl}${ApiEndPoints.getDishesByCategory}$categoryId');
     try {
-      final response =
-          await dio.get('${ApiEndPoints.getDishesByCategory}$categoryId',
-              options: Options(headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer $bearer',
-              }));
+      final response = await dio.get(
+        '${ApiEndPoints.getDishesByCategory}$categoryId',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $bearer',
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         print(response.data);
         final Map<String, dynamic> data = response.data;

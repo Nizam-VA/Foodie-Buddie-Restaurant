@@ -39,8 +39,9 @@ class ScreenCategory extends StatelessWidget {
                     current is GetDishesByCategoryState,
                 builder: (context, state) {
                   return state is GetDishesByCategoryState &&
-                          state.dishes.length == 0
-                      ? Center(child: const Text('No dishes available'))
+                          state.dishes.isEmpty
+                      ? Center(
+                          child: Image.asset('assets/images/icons/empty.gif'))
                       : ListView.builder(
                           itemCount: state is GetDishesByCategoryState
                               ? state.dishes.length
@@ -59,7 +60,10 @@ class ScreenCategory extends StatelessWidget {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => ScreenDish(
-                                          dish: dish,
+                                          dish:
+                                              state is GetDishesByCategoryState
+                                                  ? state.dishes[index]
+                                                  : dish,
                                         ),
                                       ),
                                     );
