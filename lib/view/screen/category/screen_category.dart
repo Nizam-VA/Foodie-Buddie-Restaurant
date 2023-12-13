@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodiebuddierestaurant/controller/api_services/dish/api_calls.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/category/category_bloc.dart';
 import 'package:foodiebuddierestaurant/controller/blocs/dish/dish_bloc.dart';
 import 'package:foodiebuddierestaurant/model/category.dart';
 import 'package:foodiebuddierestaurant/model/dish.dart';
 import 'package:foodiebuddierestaurant/utils/constants.dart';
 import 'package:foodiebuddierestaurant/view/screen/add_dish/screen_add_dish.dart';
+import 'package:foodiebuddierestaurant/view/screen/category/widgets/dialog.dart';
 import 'package:foodiebuddierestaurant/view/screen/dish/screen_dish.dart';
 import 'package:foodiebuddierestaurant/view/widgets/app_bar.dart';
 
@@ -132,18 +132,20 @@ class ScreenCategory extends StatelessWidget {
                                             ),
                                             IconButton(
                                               onPressed: () async {
-                                                await DishApiServices()
-                                                    .deleteDish(dish!.dishId)
-                                                    .then(
-                                                      (value) => context
-                                                          .read<DishBloc>()
-                                                          .add(
-                                                            GetDishesByCategoryEvent(
-                                                              categoryId:
-                                                                  category.id,
-                                                            ),
-                                                          ),
-                                                    );
+                                                showDialogBox(
+                                                    context, dish!, category);
+                                                // await DishApiServices()
+                                                //     .deleteDish(dish!.dishId)
+                                                //     .then(
+                                                //       (value) => context
+                                                //           .read<DishBloc>()
+                                                //           .add(
+                                                //             GetDishesByCategoryEvent(
+                                                //               categoryId:
+                                                //                   category.id,
+                                                //             ),
+                                                //           ),
+                                                //     );
                                               },
                                               icon: const Icon(
                                                 CupertinoIcons.delete,

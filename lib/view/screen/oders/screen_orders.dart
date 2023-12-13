@@ -103,6 +103,19 @@ class ScreenOrders extends StatelessWidget {
                                       ],
                                     ),
                                     kHight10,
+                                    kHight10,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text('Total Amount: '),
+                                        Text(
+                                          '₹ ${state.orders[index].totalPrice - state.orders[index].deliveryCharge}',
+                                          style: semiBoldGreen,
+                                        ),
+                                      ],
+                                    ),
+                                    kHight10,
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -197,6 +210,18 @@ class ScreenOrders extends StatelessWidget {
                                             DateTime.parse(
                                                 orders[index].deliveryDate),
                                           ),
+                                          style: semiBoldBlack,
+                                        ),
+                                      ],
+                                    ),
+                                    kHight10,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text('Total Amount: '),
+                                        Text(
+                                          '₹ ${state.orders[index].totalPrice - state.orders[index].deliveryCharge}',
                                           style: semiBoldBlack,
                                         ),
                                       ],
@@ -309,6 +334,18 @@ class ScreenOrders extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
+                                        const Text('Total Amount: '),
+                                        Text(
+                                          '₹ ${state.orders[index].totalPrice - state.orders[index].deliveryCharge}',
+                                          style: semiBoldBlack,
+                                        ),
+                                      ],
+                                    ),
+                                    kHight10,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
                                         const Text('Item count: '),
                                         Text(
                                           orders[index].itemCount.toString(),
@@ -398,6 +435,18 @@ class ScreenOrders extends StatelessWidget {
                                             DateTime.parse(
                                                 orders[index].deliveryDate),
                                           ),
+                                          style: semiBoldBlack,
+                                        ),
+                                      ],
+                                    ),
+                                    kHight10,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text('Total Amount: '),
+                                        Text(
+                                          '₹ ${state.orders[index].totalPrice - state.orders[index].deliveryCharge}',
                                           style: semiBoldBlack,
                                         ),
                                       ],

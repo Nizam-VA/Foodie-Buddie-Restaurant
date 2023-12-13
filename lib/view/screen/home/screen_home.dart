@@ -12,6 +12,7 @@ import 'package:foodiebuddierestaurant/view/screen/oders/screen_orders.dart';
 import 'package:foodiebuddierestaurant/view/screen/order_details/screen_order_details.dart';
 import 'package:foodiebuddierestaurant/view/widgets/floating_button.dart';
 import 'package:foodiebuddierestaurant/view/widgets/section_header.dart';
+import 'package:intl/intl.dart';
 
 class ScreenHome extends StatelessWidget {
   ScreenHome({super.key});
@@ -186,7 +187,7 @@ class ScreenHome extends StatelessWidget {
                                           style: boldBlack,
                                         ),
                                         subtitle: Text(
-                                          'Order Amount: ${state.orders[index].totalPrice - state.orders[index].deliveryCharge}',
+                                          'Order Amount: ₹ ${state.orders[index].totalPrice - state.orders[index].deliveryCharge}\nDate: ${DateFormat('d MMMM yyyy').format(DateTime.parse(state.orders[index].orderDate))}',
                                           style: semiBoldBlack,
                                         ),
                                         trailing: const Icon(CupertinoIcons

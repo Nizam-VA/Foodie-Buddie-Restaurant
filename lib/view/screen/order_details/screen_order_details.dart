@@ -136,7 +136,7 @@ class ScreenOrderDetails extends StatelessWidget {
                           style: semiBoldBlack,
                         ),
                         Text(
-                          '${state.orderItems[index].salePrice * state.orderItems[index].quantity}',
+                          '₹ ${state.orderItems[index].salePrice * state.orderItems[index].quantity}',
                           style: boldGreen,
                         )
                       ],
@@ -157,7 +157,7 @@ class ScreenOrderDetails extends StatelessWidget {
                       style: semiBoldBlack,
                     ),
                     Text(
-                      '${order.totalPrice - order.deliveryCharge}',
+                      '₹ ${order.totalPrice - order.deliveryCharge}',
                       style: boldGreen,
                     )
                   ],
