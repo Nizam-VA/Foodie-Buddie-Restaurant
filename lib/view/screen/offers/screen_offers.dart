@@ -69,6 +69,7 @@ class ScreenOffers extends StatelessWidget {
                                 ),
                                 CircleAvatar(
                                   radius: 40,
+                                  backgroundColor: Colors.green[700],
                                   child: Text(
                                       '${state.offers[index].offerPercentage}%',
                                       style: boldWhite),
@@ -84,7 +85,7 @@ class ScreenOffers extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.green,
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
@@ -92,6 +93,7 @@ class ScreenOffers extends StatelessWidget {
             ),
           );
         },
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

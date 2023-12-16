@@ -6,7 +6,12 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+      backgroundColor: Colors.green,
+      title: Text(title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          )),
       centerTitle: true,
     );
   }

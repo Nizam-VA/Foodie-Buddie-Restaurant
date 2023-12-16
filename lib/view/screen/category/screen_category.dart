@@ -93,7 +93,7 @@ class ScreenCategory extends StatelessWidget {
                                       ? '₹ ${state.dishes[index].price.toString()}'
                                       : ''),
                                   trailing: SizedBox(
-                                    width: width * .24,
+                                    width: width * .25,
                                     child: BlocBuilder<CategoryBloc,
                                         CategoryState>(
                                       builder: (context, state) {

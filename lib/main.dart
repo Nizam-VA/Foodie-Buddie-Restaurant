@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.green,
+          primaryColor: Colors.green,
         ),
         home: const ScreenSplash(),
       ),

@@ -8,7 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiServices {
-  static const String baseUrl = 'http://10.0.2.2:8080';
+  static const String baseUrl =
+      'http://ec2-51-21-2-21.eu-north-1.compute.amazonaws.com';
 
   Future<bool> register(Restaurant restaurant) async {
     const url = '$baseUrl/seller/register';
@@ -39,7 +40,6 @@ class ApiServices {
   }
 
   Future<bool> login(String email, String password) async {
-    print('hello');
     try {
       const url = '$baseUrl/seller/login';
       final data = {

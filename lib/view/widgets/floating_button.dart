@@ -13,6 +13,7 @@ class FloatingButton extends StatelessWidget {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         return FloatingActionButton(
+          backgroundColor: Colors.green,
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -26,10 +27,10 @@ class FloatingButton extends StatelessWidget {
           child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.add, size: 18),
+              Icon(Icons.add, size: 18, color: Colors.white),
               Text(
                 'Add Dish',
-                style: TextStyle(fontSize: 8),
+                style: TextStyle(fontSize: 8, color: Colors.white),
               )
             ],
           ),

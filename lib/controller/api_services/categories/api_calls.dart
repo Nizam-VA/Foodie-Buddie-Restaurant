@@ -6,7 +6,8 @@ import 'package:foodiebuddierestaurant/utils/tokens.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriesApiServices {
-  static const String baseUrl = 'http://10.0.2.2:8080';
+  static const String baseUrl =
+      'http://ec2-51-21-2-21.eu-north-1.compute.amazonaws.com';
 
   Future<List<Category>> fetchAllCategories() async {
     try {

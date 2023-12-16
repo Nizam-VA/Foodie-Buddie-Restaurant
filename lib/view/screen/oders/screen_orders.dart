@@ -19,9 +19,14 @@ class ScreenOrders extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.green,
+            centerTitle: true,
             title: const Text(
               'Orders',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+              ),
             ),
             bottom: TabBar(
               labelColor: Colors.green[900],

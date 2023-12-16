@@ -155,7 +155,10 @@ class ScreenHome extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Text('View All'),
+                        child: Text(
+                          'View All',
+                          style: TextStyle(color: Colors.green[700]),
+                        ),
                       )
                     ],
                   ),
@@ -222,7 +225,10 @@ class ScreenHome extends StatelessWidget {
                               ),
                             );
                           },
-                          child: const Text('View All'))
+                          child: Text(
+                            'View All',
+                            style: TextStyle(color: Colors.green[700]),
+                          ))
                     ],
                   ),
                   CategoriesGridview(height: height, width: width),

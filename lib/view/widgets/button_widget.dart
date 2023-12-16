@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodiebuddierestaurant/utils/text_styles.dart';
 
 class ButtonWidget extends StatelessWidget {
   const ButtonWidget({
@@ -20,11 +21,12 @@ class ButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: Text(text),
+        child: Text(text, style: regularWhite),
       ),
     );
   }
