@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.green,
-          primaryColor: Colors.green,
-        ),
+            primarySwatch: Colors.green,
+            primaryColor: Colors.green,
+            useMaterial3: false),
         home: const ScreenSplash(),
       ),
     );

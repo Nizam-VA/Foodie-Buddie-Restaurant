@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodiebuddierestaurant/controller/api_services/authentication/api_calls.dart';
 import 'package:foodiebuddierestaurant/utils/constants.dart';
+import 'package:foodiebuddierestaurant/utils/text_styles.dart';
 import 'package:foodiebuddierestaurant/view/screen/forgot_password/screen_forgot_password.dart';
 import 'package:foodiebuddierestaurant/view/screen/main/screen_main.dart';
 import 'package:foodiebuddierestaurant/view/widgets/button_widget.dart';
@@ -110,6 +111,10 @@ class ScreenLogin extends StatelessWidget {
                       }
                     },
                   ),
+                  kHight30,
+                  const Text('Demo User', style: semiBoldBlack),
+                  const Text('Username: ajwa@gmail.com'),
+                  const Text('Password: Ajwa@123'),
                 ],
               )
             ],

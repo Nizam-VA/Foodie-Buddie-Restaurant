@@ -146,8 +146,9 @@ class _ScreenAddDishesState extends State<ScreenAddDishes> {
                             inputType: TextInputType.name,
                             obscureText: false,
                             validator: (value) {
-                              if (value!.isEmpty)
+                              if (value!.isEmpty) {
                                 return 'Enter the description';
+                              }
                             },
                           ),
                           kHight10,
